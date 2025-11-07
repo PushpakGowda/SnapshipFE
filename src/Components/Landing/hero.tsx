@@ -1,7 +1,9 @@
 import { Box, Button, Typography } from '@mui/material';
 import image from '../../assets/Images/photo-album-photos-travel-vintage-600nw-366653684.webp';
+import { useNavigate } from 'react-router-dom';
 
 export const Hero = () => {
+  const navigate = useNavigate();
   return (
     <Box
       sx={{
@@ -72,6 +74,7 @@ export const Hero = () => {
 
           <Button
             variant="contained"
+            onClick={() => navigate("/Login")} 
             sx={{
               width: 150,
               borderRadius: '20px',
