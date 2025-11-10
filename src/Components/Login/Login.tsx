@@ -119,6 +119,7 @@ export const Login = () => {
               background: "linear-gradient(90deg, #1e88e5, #1565c0)",
             },
           }}
+          onClick={()=>navigate("/App")}
         >
           Sign In
         </Button>

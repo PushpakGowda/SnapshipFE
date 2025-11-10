@@ -6,6 +6,12 @@ import { LoginLayout } from '../Components/Login/LoginLayout';
 import { ForgotPassword } from '../Components/Login/ForgotPassword';
 import { OTPPage } from '../Components/Login/OTP';
 import { ChangePassword } from '../Components/Login/ChangePassword';
+import { AppLayout } from '../Components/Application/App';
+import { Uploads } from '../Components/Application/Uploads';
+import { Albums } from '../Components/Application/Albums';
+import { Orders } from '../Components/Application/Orders';
+import { Cart } from '../Components/Application/Cart';
+import { Setting } from '../Components/Application/Settings';
 
 export const router = createBrowserRouter([
     {
@@ -22,5 +28,17 @@ export const router = createBrowserRouter([
         { path: "ChangePassword", element: <ChangePassword /> },
         { path: "OTP", element: <OTPPage /> },
     ],
-    }
+    },
+     {
+    path: "/App",
+    element: <AppLayout />, 
+    children: [
+        { index: true, element: <Uploads />},
+        { path: "uploads", element: <Uploads />},
+        { path: "albums", element: <Albums />},
+        { path: "orders", element: <Orders />},
+        { path: "cart", element: <Cart />},
+        { path: "settings", element: <Setting />},
+    ],
+    },
 ]);
