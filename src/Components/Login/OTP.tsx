@@ -10,6 +10,7 @@ export const OTPPage = () => {
     navigate("/Login/ChangePassword");
   };
 
+  console.log(otp);
   return (
     <Paper
       elevation={8}
