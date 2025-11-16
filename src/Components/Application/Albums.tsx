@@ -1,39 +1,101 @@
 import { Box, Typography, useMediaQuery, Card, CardMedia, CardContent, Button } from "@mui/material";
 import { AddPhotoAlternate } from "@mui/icons-material";
 import { theme } from "../theme";
+import { useNavigate } from "react-router-dom";
+import { CreateAlbumPopUp } from "./CreateAlbumPopUp";
+import { useState } from "react";
 
 const albumData = [
   {
+    id:1,
     title: "Vacation Memories",
     img: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e",
     photos: 42,
   },
   {
+    id:2,
     title: "Family Moments",
     img: "https://images.unsplash.com/photo-1511988617509-a57c8a288659",
     photos: 58,
   },
   {
+    id:3,
     title: "College Days",
     img: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e",
     photos: 37,
   },
   {
+    id:4,
     title: "Nature Collection",
     img: "https://images.unsplash.com/photo-1501785888041-af3ef285b470",
     photos: 25,
   },
   {
+    id:4,
     title: "Birthday Bash",
     img: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30",
     photos: 19,
   },
 ];
-
+const DEMO_IMAGES = [
+  {
+    id:1,
+    img: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
+    title: "Breakfast",
+    date: "2025-11-09",
+  },
+  {
+    id:2,
+    img: "https://images.unsplash.com/photo-1551782450-a2132b4ba21d",
+    title: "Burger",
+    date: "2025-11-09",
+  },
+  {
+    id:3,
+    img: "https://images.unsplash.com/photo-1522770179533-24471fcdba45",
+    title: "Camera",
+    date: "2025-11-08",
+  },
+  {
+    id:4,
+    img: "https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c",
+    title: "Coffee",
+    date: "2025-11-08",
+  },
+  {
+    id:5,
+    img: "https://images.unsplash.com/photo-1533827432537-70133748f5c8",
+    title: "Hats",
+    date: "2025-11-05",
+  },
+  {
+    id:6,
+    img: "https://images.unsplash.com/photo-1558642452-9d2a7deb7f62",
+    title: "Honey",
+    date: "2025-11-03",
+  },
+];
 export const Albums = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const navigate = useNavigate();
+
+  const [photoPopupOpen, setPhotoPopupOpen] = useState(false);
+  const [selectedPhotos, setSelectedPhotos] = useState<string[]>([]);
+
+  const handleSelectPhoto = (img: string) => {
+    setSelectedPhotos((prev) =>
+      prev.includes(img) ? prev.filter((p) => p !== img) : [...prev, img]
+    );
+  };
+
+  const handleAddPhotos = () => {
+    console.log("Selected Photos:", selectedPhotos);
+    setPhotoPopupOpen(false);
+  };
+
 
   return (
+    <>
     <Box
       sx={{
         width: "100%",
@@ -49,7 +111,6 @@ export const Albums = () => {
       <Box
         sx={{
           width: "100%",
-          maxWidth: 900,
           p: { xs: 3, sm: 4 },
           borderRadius: "20px",
           background: "#ffffff",
@@ -101,6 +162,7 @@ export const Albums = () => {
         >
           {/* ➕ Create New Album */}
           <Card
+            onClick={() => setPhotoPopupOpen(true)}
             sx={{
               border: "2px dashed rgba(25,118,210,0.3)",
               borderRadius: "16px",
@@ -133,10 +195,10 @@ export const Albums = () => {
               <Typography fontWeight={600}>Create New Album</Typography>
             </Button>
           </Card>
-
           {/* 🖼️ Existing Albums */}
           {albumData.map((album, index) => (
             <Card
+              onClick={() => navigate(`/App/albums/viewAlbum`, { state: { albumId: album.id}})}
               key={index}
               sx={{
                 borderRadius: "16px",
@@ -193,5 +255,15 @@ export const Albums = () => {
         </Box>
       </Box>
     </Box>
+    <CreateAlbumPopUp
+      open={photoPopupOpen}
+      images={DEMO_IMAGES}
+      selectedPhotos={selectedPhotos}
+      onClose={() => setPhotoPopupOpen(false)}
+      onSelect={handleSelectPhoto}
+      onChangeSelected={setSelectedPhotos}   
+      onSubmit={handleAddPhotos}
+      />
+    </>
   );
 };

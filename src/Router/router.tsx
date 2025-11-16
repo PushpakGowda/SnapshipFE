@@ -12,6 +12,8 @@ import { Albums } from '../Components/Application/Albums';
 import { Orders } from '../Components/Application/Orders';
 import { Cart } from '../Components/Application/Cart';
 import { Setting } from '../Components/Application/Settings';
+import { ViewAlbum } from '../Components/Application/ViewAlbum';
+import { Print } from '../Components/Application/Print';
 
 export const router = createBrowserRouter([
     {
@@ -29,16 +31,18 @@ export const router = createBrowserRouter([
         { path: "OTP", element: <OTPPage /> },
     ],
     },
-     {
+    {
     path: "/App",
     element: <AppLayout />, 
     children: [
         { index: true, element: <Uploads />},
         { path: "uploads", element: <Uploads />},
         { path: "albums", element: <Albums />},
+        { path: "albums/viewAlbum", element: <ViewAlbum/>},
         { path: "orders", element: <Orders />},
         { path: "cart", element: <Cart />},
         { path: "settings", element: <Setting />},
+        { path: "print", element: <Print />},
     ],
-    },
+    }
 ]);
