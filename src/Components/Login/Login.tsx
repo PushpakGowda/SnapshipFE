@@ -9,9 +9,30 @@ import {
 } from "@mui/material";
 import GoogleIcon from "@mui/icons-material/Google";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { loginUser } from "../../Redux/Slice/AuthThunks";
+import { useDispatch } from "react-redux";
 
 export const Login = () => {
   const navigate = useNavigate();
+  const [loginId,setLoginId] = useState<string>("");
+  const [password,setPassword] = useState<string>("");
+  const dispatch = useDispatch<any>();
+
+  const submit = () => {
+    if (!loginId.trim() || !password.trim()) {
+      alert("Please enter Login ID and Password");
+      return;
+    }
+    
+    dispatch(loginUser({ loginId, password }))
+      .unwrap()
+      .then(() => navigate("/App"))   
+      .catch(() => {
+        alert("Invalid credentials");
+      });
+  };
+
 
   return (
     <Paper
@@ -66,6 +87,8 @@ export const Login = () => {
           label="Login ID"
           variant="outlined"
           fullWidth
+          value={loginId}
+          onChange={(e) => setLoginId(e.target.value)}
           InputLabelProps={{ style: { color: "#ccc" } }}
           InputProps={{
             style: {
@@ -81,6 +104,8 @@ export const Login = () => {
           type="password"
           variant="outlined"
           fullWidth
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
           InputLabelProps={{ style: { color: "#ccc" } }}
           InputProps={{
             style: {
@@ -119,7 +144,8 @@ export const Login = () => {
               background: "linear-gradient(90deg, #1e88e5, #1565c0)",
             },
           }}
-          onClick={()=>navigate("/App")}
+          onClick={()=>submit()
+          }
         >
           Sign In
         </Button>

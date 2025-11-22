@@ -12,6 +12,7 @@ import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { CircularCheck } from "../CustomComponents/CustomComponents";
 import { useNavigate } from "react-router-dom";
 
+
 interface imageState {
   id: number;
   img: string;
@@ -34,6 +35,7 @@ const grouped = itemData.reduce((acc: any, item) => {
   acc[item.date].push(item);
   return acc;
 }, {});
+
 
 export const Uploads = () => {
   const navigate = useNavigate();

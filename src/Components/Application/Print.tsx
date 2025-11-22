@@ -83,6 +83,7 @@ export const Print = () => {
   const navigate = useNavigate();
   const images = useMemo(() => DEMO_IMAGES, []);
 
+  console.log(isMobile);
   const [mapped, setMapped] = useState<MappedProduct[]>(
     images.map((img) => ({
       img,
@@ -476,6 +477,7 @@ export const Print = () => {
           </Button>
 
           <Button
+            onClick={()=>navigate("/App/Payment")}
             variant="contained"
             fullWidth
             startIcon={<FlashOnIcon />}
